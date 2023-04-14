@@ -47,6 +47,9 @@
 
                                     <form method="post" action="{{url('signin')}}" id="login-form">
                                         @csrf
+
+                                        <input type="hidden" value="{{ url()->previous() }}" name="previous_url">
+
                                         <div class="form-group">
                                             <div class="field-inner">
                                                 <input type="text" name="logusername" value="{{old('logusername')}}" placeholder="Username or Email" required="">

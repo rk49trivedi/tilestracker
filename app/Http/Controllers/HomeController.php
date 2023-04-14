@@ -81,7 +81,7 @@ class HomeController extends Controller
         if(count($chkuserCred) > 0) {
             session()->put('unlocker_user',array($chkuserCred[0]->id,$chkuserCred[0]->username,$chkuserCred[0]->name,$chkuserCred[0]->email));
             session()->save();
-            return redirect('/');
+            return redirect($request->previous_url);
         } else {
             return redirect()->back()->with('error_login','Invalid authentication')->withInput($request->input());
         }
