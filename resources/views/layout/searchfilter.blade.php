@@ -17,7 +17,7 @@
                 <div class="form-group col-xl-3 col-lg-6 col-md-6 col-sm-12">
                     <div class="field-label">Search here: Title | Tags</div>
                     <div class="field-inner">
-                    <input type="text" class="border-0 form-control" placeholder="Search here..">
+                    <input type="text" class="border-0 form-control" name="search_item" placeholder="Search here..">
                     </div>
                 </div>
                 <div class="form-group col-xl-3 col-lg-6 col-md-6 col-sm-12">
