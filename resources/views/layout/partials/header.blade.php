@@ -24,10 +24,10 @@
                 <nav class="main-menu navbar-expand-md navbar-light">
                     <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
                         <ul class="navigation clearfix">
-                            <li class="current"><a href="{{url('/')}}">Home</a></li>
-                            <li><a href="{{url('/about')}}">About Us</a></li>
-                            <li><a href="{{url('/pricing')}}">Pricing</a></li>
-                            <li><a href="{{url('/contact')}}">Contact</a></li>
+                            <li @if(request()->is('/')) class="current" @endif><a href="{{url('/')}}">Home</a></li>
+                            <li @if(request()->is('about')) class="current" @endif><a href="{{url('/about')}}">About Us</a></li>
+                            <li @if(request()->is('pricing')) class="current" @endif><a href="{{url('/pricing')}}">Pricing</a></li>
+                            <li @if(request()->is('contact')) class="current" @endif><a href="{{url('/contact')}}">Contact</a></li>
                         </ul>
                     </div>
                 </nav>

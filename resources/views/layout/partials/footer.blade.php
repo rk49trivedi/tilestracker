@@ -26,11 +26,10 @@
                                         <h4>Services</h4>
                                     </div>
                                     <ul class="links">
-                                        <li><a href="index.html">Home</a></li>
-                                        <li><a href="gallery.html">Gallery</a></li>
-                                        <li><a href="news.html">News</a></li>
-                                        <li><a href="about.html">About</a></li>
-                                        <li><a href="contact.html">Contact</a></li>
+                                        <li class=""><a href="{{url('/')}}">Home</a></li>
+                                        <li><a href="{{url('/about')}}">About Us</a></li>
+                                        <li><a href="{{url('/pricing')}}">Pricing</a></li>
+                                        <li><a href="{{url('/contact')}}">Contact</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">

@@ -136,6 +136,12 @@ a {
     color: #1b1c1e;
 }
 
+li.current a {
+    color: #000;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+}
+
 .theme_color {
     color: #1b1c1e;
 }
