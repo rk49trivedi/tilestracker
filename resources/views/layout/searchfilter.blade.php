@@ -23,7 +23,7 @@
                 <div class="form-group col-xl-3 col-lg-6 col-md-6 col-sm-12">
                     <div class="field-label">Search by Image</div>
                     <div class="field-inner">
-                        <input class="upload-img" type="file" name="searchimagefile" id="searchImageFile" placeholder="">
+                        <input class="upload-img" type="file" name="searchimagefile" id="searchImageFile" accept=".jpg" placeholder="">
                         <!-- <label for="depart-date" class="icon flaticon-down-arrow"></label> -->
                     </div>
                 </div>

@@ -63,7 +63,16 @@ class ImagesController extends Controller
                         foreach($files as $file){
                             $imageName = $file->getRelativePathname();
                             $imagetwo = url('img/tiles/'.$catName.'/'.$imageName);
+
+                            if(exif_imagetype($imageOne) != IMAGETYPE_JPEG || exif_imagetype($imagetwo) != IMAGETYPE_JPEG){
+                                
+                                return redirect()->back()->with('error','Use only JPEG images');
+                                exit;
+                               
+                            }
+
                             $similarityRate = TilesImage::compareImages($imageOne,$imagetwo);
+                            
                             if($similarityRate >= 25 && $similarityRate <= 100){
                                 $res['imagePath'] = $imagetwo;
                                 $res['title'] = $imageName;

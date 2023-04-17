@@ -22,6 +22,54 @@ class TilesImage extends Model
 
     public static function compareImages($pathA, $pathB)
     {
+        $accuracy = 90; //Set accuracy of comparison
+        $bim = imagecreatefromjpeg($pathA);  //load base image from internet
+        //create comparison points
+        $bimX = imagesx($bim);
+        $bimY = imagesy($bim);
+        $pointsX = $accuracy * 5;
+        $pointsY = $accuracy * 5;
+        $sizeX = round($bimX / $pointsX);
+        $sizeY = round($bimY / $pointsY);
+        $im = imagecreatefromjpeg($pathB); //load second image from internet
+        //loop through each point and compare the color of that point
+        $y = 0;
+        $matchcount = 0;
+        $num = 0;
+        for ($i = 0; $i <= $pointsY; $i++) {
+            $x = 0;
+            for ($n = 0; $n <= $pointsX; $n++) {
+                $x = $n * $sizeX;
+                $y = $i * $sizeY;
+                if ($x >= $bimX || $y >= $bimY) {
+                    continue;
+                }
+                try {
+                    //check if the coordinates are within the bounds of the image
+                    if ($x >= 0 && $y >= 0 && $x < imagesx($im) && $y < imagesy($im)) {
+                        $rgba = imagecolorat($bim, $x, $y);
+                        $colorsa = imagecolorsforindex($bim, $rgba);
+                        $rgbb = imagecolorat($im, $x, $y);
+                        $colorsb = imagecolorsforindex($im, $rgbb);
+                        if (self::colorComp($colorsa['red'], $colorsb['red']) && self::colorComp($colorsa['green'], $colorsb['green']) && self::colorComp($colorsa['blue'], $colorsb['blue'])) {
+                            $matchcount++;
+                        }
+                    }
+                    $x += $sizeX;
+                    $num++;
+                } catch (Exception $e) {
+                    //handle exceptions
+                }
+            }
+            $y += $sizeY;
+        }
+        $rating = $matchcount * (100 / $num);
+        return $rating;
+    }
+
+
+    /*public static function compareImages($pathA, $pathB)
+    {
         
         $accuracy = 90; //Set accuracy of comparison
         $bim = imagecreatefromjpeg($pathA);  //load base image from internet
@@ -63,7 +111,7 @@ class TilesImage extends Model
         }
         $rating = $matchcount * (100 / $num);
         return $rating;
-    }
+    }*/
 
     public static function colorComp($color, $c)
     {
