@@ -71,14 +71,26 @@ class ImagesController extends Controller
                                
                             }
 
-                            $similarityRate = TilesImage::compareImages($imageOne,$imagetwo);
-                            
+                              $similarityRate = TilesImage::compareImages($imageOne,$imagetwo); 
+                              
+
+                            if($similarityRate > 0){
+                                $similarityRate = round(($similarityRate * 100));
+                            }
+
                             if($similarityRate >= 25 && $similarityRate <= 100){
                                 $res['imagePath'] = $imagetwo;
                                 $res['title'] = $imageName;
                                 $res['category'] = $catDetails->name;
                                 array_push($allMatchesImages,$res);
+                            }else if($similarityRate >= 3){
+                                $res['imagePath'] = $imagetwo;
+                                $res['title'] = $imageName;
+                                $res['category'] = $catDetails->name;
+                                array_push($allMatchesImages,$res);
                             }
+
+
                         }
                     }
                     
