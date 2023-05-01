@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\AjaxController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\ImagesController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,13 +48,18 @@ Route::group(['middleware'=>['members']],function(){
         return redirect('/login');
     });
     Route::get('/cart/{id}',[HomeController::class,'Showcart']);
-    
+    Route::post('/processtopay', [OrderController::class, 'processtoPay']);
+    Route::get('/checkout',[OrderController::class,'showCheckout']);
+    Route::get('/orders',[OrderController::class,'viewOrders']);
+    Route::post('/paymentprocess', [OrderController::class, 'Paymentprocess'])->name('payment.process');
 });
 
 
 Route::group(['prefix'=>'admin'],function(){
 
     Route::get('/',function(){return redirect('/admin/login');});
+
+    Route::get('/orders',[AdminController::class,'viewOrders']);
 
     Route::get('/login', [AdminController::class, 'adminlogin']);
     Route::post('/signin', [AjaxController::class, 'signinprocess']);

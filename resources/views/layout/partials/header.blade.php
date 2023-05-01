@@ -38,6 +38,7 @@
                     <ul class="clearfix">
                         @if(session()->has('unlocker_user'))
                         <li><a href="#."><span class="icon flaticon-user"></span><span class="txt">Hello , {{session()->get('unlocker_user')[2]}}</span></a></li>
+                        <li><a href="{{url('/orders')}}"><span class="txt">Orders</span></a></li>
                         @else
                         <li><a href="{{url('/login')}}"><span class="icon flaticon-padlock"></span><span class="txt">Login</span></a></li>
                         <li><a href="te:"><span class="icon flaticon-smartphone-2"></span><span class="txt">+91 123 456 7890</span></a></li>

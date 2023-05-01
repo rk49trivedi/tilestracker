@@ -39,7 +39,7 @@
                                     <h5 class="card-title">{{$priceDetail->name}}</h5>
                                     <small>{{$priceDetail->type}}</small>
                                     <br><br>
-                                    <span class="h2">${{$priceDetail->price}}</span>/{{$priceDetail->interval}}
+                                    <span class="h2">Rs.{{$priceDetail->price}}</span>/{{$priceDetail->interval}}
                                     <br><br>
                                 </div>
                                 <p class="card-text">{{$priceDetail->description_data}}</p>
