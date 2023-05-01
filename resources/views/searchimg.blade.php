@@ -32,6 +32,32 @@
 
         @if(session()->has('unlocker_user'))
 
+        <div class="row clearfix mt-5">
+
+            @foreach($allMatchesImages as $filterImages) 
+
+
+                <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
+                    <div class="inner-box">
+                        <div class="image-box">
+                            <figure class="image">
+                                <a><img src="{{$filterImages['imagePath']}}" alt="" title=""></a>
+                            </figure>
+                        </div>
+                        <div class="lower-box">
+                            <h4>{{$filterImages['category']}}</h4>
+                            <div class="pricing clearfix">
+                                <div class="price">Category : <span>Tiles</span></div>
+                                <div class="price tags-f">Tags : <span>Tags1, Tags 2</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            @endforeach
+        </div>
+
         
 
         @else
