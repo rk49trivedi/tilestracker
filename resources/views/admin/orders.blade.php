@@ -8,64 +8,52 @@
   </section>
   <section class="content">
     
-    <form action="{{route('add-category')}}" method="post" enctype="multipart/form-data" autocomplete="off">
-        {{ csrf_field() }}
       <div class="box">
         <div class="box-header with-border">
-          <div class="user-block"><span class=""><a href="#">Create Category</a></span></div>
+          <div class="user-block"><span class=""><a href="#">Orders List</a></span></div>
         </div>
         <div class="box-body">
           <div class="row">
             <div class="col-md-12">
-              <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon">Name</span>
-                  <input type="text" class="form-control"  name="catName" value="" placeholder="Category Name" required>
-                </div>
+              <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                  <thead>
+                    <th>#OrderID</th>
+                    <th>Customer</th>
+                    <th>Plan</th>
+                    <th>Transaction ID</th>
+                    <th>Payment Status</th>
+                  </thead>
+                      @foreach($allOrders as $priceDetail)
+
+                        <tbody>
+                            <tr>
+                                <td>#{{$priceDetail->order_id}}</td>
+                                <td>
+                                  <div><strong>Customer ID : </strong>#{{$priceDetail->user_id}}</div>
+                                  <div><strong>Email : </strong>{{$priceDetail->email}}</div>
+                                </td>
+                                <td>{{$priceDetail->name}}</td>
+                                <td>{{$priceDetail->transaction_id}}</td>
+                                <td>
+                                    @if($priceDetail->status == 'pending')
+                                    <span class="label label-danger">{{$priceDetail->status}}</span>
+                                    @else
+                                    <span class="label label-success">{{$priceDetail->status}}</span>
+                                    @endif
+                                </td>
+                                
+                            </tr>
+                        </tbody>
+                    
+                    @endforeach
+
+                </table>
               </div>
             </div>
           </div>
-          <div class="box-footer">
-                <button type="submit" class="btn btn-primary pull-right">Create</button>
-                
-                <div class="col-md-12" style="margin:20px 0px;">
-
-                      @if ($errors->any())
-                        <div class="col-md-12">
-                          <div class="alert alert-danger">
-                              <ul>
-                                  @foreach ($errors->all() as $error)
-                                      <li>{{ $error }}</li>
-                                  @endforeach
-                              </ul>
-                          </div>
-                        </div>
-                      @endif
-
-                      @if(session()->has('error'))
-
-                          <div class="col-md-12 alert alert-danger" style="display:block;">
-
-                              {{ session()->get('error') }}
-
-                          </div>
-
-                      @endif
-
-                      @if(session()->has('success'))
-
-                          <div class="col-md-12 alert alert-success" style="display:block;">
-
-                              {{ session()->get('success') }}
-
-                          </div>
-
-                      @endif
-                    
-          </div>
         </div>
       </div>
-    </form>
   </section>
 </div>
 @endsection 

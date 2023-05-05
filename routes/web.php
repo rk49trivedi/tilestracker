@@ -60,6 +60,9 @@ Route::group(['prefix'=>'admin'],function(){
     Route::get('/',function(){return redirect('/admin/login');});
 
     Route::get('/orders',[AdminController::class,'viewOrders']);
+    Route::get('/users',[AdminController::class,'viewUsers']);
+    Route::get('/update-price',[AdminController::class,'ViewPrice']);
+    Route::post('/update-price-process',[AdminController::class,'UpdatePrice']);
 
     Route::get('/login', [AdminController::class, 'adminlogin']);
     Route::post('/signin', [AjaxController::class, 'signinprocess']);

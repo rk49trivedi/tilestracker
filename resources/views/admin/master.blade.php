@@ -107,6 +107,19 @@
               </ul>
 
           </li>
+
+          <li class="{{ (Request::is('admin/orders')) ? 'active treeview' : 'treeview' }}"><a href="#."><i class="fa fa-info"></i> <span>Orders</span> <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a> 
+    
+            <ul class="treeview-menu">
+                <li class="{{ (Request::is('admin/orders')) ? 'active' : '' }}"><a href="{{url('admin/orders')}}"><i class="fa fa-circle"></i> <span>Manage Orders</span></a> </li>
+                <li class="{{ (Request::is('admin/update-price')) ? 'active' : '' }}"><a href="{{url('admin/update-price')}}"><i class="fa fa-circle"></i> <span>Update Price</span></a> </li>
+            </ul>
+
+          </li>
+
+          <li class="{{ Request::is('admin/users') ? 'active' : '' }}" ><a href="{{url('admin/users')}}"><i class="fa fa-user"></i> <span>Users </span></a> </li>
+          
+
         
         </ul>
 
