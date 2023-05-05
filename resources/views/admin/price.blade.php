@@ -13,7 +13,20 @@
           <div class="user-block"><span class=""><a href="#">Price List</a></span></div>
         </div>
         <div class="box-body">
-          <div class="row">
+          <div class="col-md-12">
+
+            @if(session()->has('success'))
+                        <div class="form-col col-md-12 col-sm-12 alert alert-success">
+                            {{session()->get('success')}}
+                        </div>
+                    @endif
+
+                    @if(session()->has('error'))
+                        <div class="form-col col-md-12 col-sm-12 alert alert-danger">
+                            {{session()->get('error')}}
+                        </div>
+                    @endif
+
             @foreach($allPrice as $price)
 
 
