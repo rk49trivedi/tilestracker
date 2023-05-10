@@ -30,8 +30,8 @@
     <span id="bubblingG_2"></span>
     <span id="bubblingG_3"></span>
   </div>
-  
-  
+
+
   <div class="wrapper">
 
     <header class="main-header">
@@ -64,7 +64,7 @@
         </div>
       </nav>
     </header>
-    
+
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <form id="frmCpw">
         <div class="modal-dialog" role="document">
@@ -84,7 +84,7 @@
                 <input type="password" class="form-control" id="txtNewpass2" name="txtNewpass2" placeholder="Retype new password">
               </div>
             </div>
-            
+
             <div class="modal-footer">
               <p class="pull-left" id="cperr"></p>
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -99,8 +99,8 @@
         <ul class="sidebar-menu" data-widget="tree">
           <li class="{{ Request::is('admin/dashboard') ? 'active' : '' }}" ><a href="{{url('admin/dashboard')}}"><i class="fa fa-dashboard"></i> <span>Dashboard </span></a> </li>
 
-          <li class="{{ (Request::is('admin/category') || Request::is('admin/create-category') || Request::is('admin/edit-category') || Request::is('admin/upload-images/*')) ? 'active treeview' : 'treeview' }}"><a href="#."><i class="fa fa-info"></i> <span>Category</span> <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a> 
-    
+          <li class="{{ (Request::is('admin/category') || Request::is('admin/create-category') || Request::is('admin/edit-category') || Request::is('admin/upload-images/*')) ? 'active treeview' : 'treeview' }}"><a href="#."><i class="fa fa-info"></i> <span>Category</span> <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+
               <ul class="treeview-menu">
                   <li class="{{ (Request::is('admin/category')) ? 'active' : '' }}"><a href="{{url('admin/category')}}"><i class="fa fa-circle"></i> <span>Manage Category</span></a> </li>
                   <li class="{{ (Request::is('admin/create-category')) ? 'active' : '' }}"><a href="{{url('admin/create-category')}}"><i class="fa fa-circle"></i> <span>Create Category</span></a> </li>
@@ -108,19 +108,21 @@
 
           </li>
 
-          <li class="{{ (Request::is('admin/orders')) ? 'active treeview' : 'treeview' }}"><a href="#."><i class="fa fa-info"></i> <span>Orders</span> <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a> 
-    
+          <li class="{{ (Request::is('admin/orders')) ? 'active treeview' : 'treeview' }}"><a href="#."><i class="fa fa-info"></i> <span>Orders</span> <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+
             <ul class="treeview-menu">
                 <li class="{{ (Request::is('admin/orders')) ? 'active' : '' }}"><a href="{{url('admin/orders')}}"><i class="fa fa-circle"></i> <span>Manage Orders</span></a> </li>
-                <li class="{{ (Request::is('admin/update-price')) ? 'active' : '' }}"><a href="{{url('admin/update-price')}}"><i class="fa fa-circle"></i> <span>Update Price</span></a> </li>
+
             </ul>
 
           </li>
 
-          <li class="{{ Request::is('admin/users') ? 'active' : '' }}" ><a href="{{url('admin/users')}}"><i class="fa fa-user"></i> <span>Users </span></a> </li>
-          
+            <li class="{{ (Request::is('admin/update-price')) ? 'active' : '' }}"><a href="{{url('admin/update-price')}}"><i class="fa fa-circle"></i> <span>Update Price</span></a> </li>
 
-        
+          <li class="{{ Request::is('admin/users') ? 'active' : '' }}" ><a href="{{url('admin/users')}}"><i class="fa fa-user"></i> <span>Users </span></a> </li>
+
+
+
         </ul>
 
 
@@ -129,7 +131,7 @@
     <script src="{{asset('admin_asset/modules/js/change.js')}}"></script>
     @yield("content")
     <footer class="main-footer"><strong>Copyright &copy; <?php echo date("Y");?> </strong> All rights reserved. </footer>
-  
+
   </div>
 
   <script src="{{asset('admin_asset/bower_components/select2/dist/js/select2.full.min.js')}}"></script>
@@ -153,17 +155,17 @@
     date.setDate(date.getDate());
     $('#datepicker').datepicker({});
     $('#datepicker2').datepicker({});
-    
+
     $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
       checkboxClass: 'icheckbox_minimal-blue',
       radioClass   : 'iradio_minimal-blue'
     });
-    
+
     $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
       checkboxClass: 'icheckbox_minimal-red',
       radioClass   : 'iradio_minimal-red'
     })
-    
+
     $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
       checkboxClass: 'icheckbox_flat-green',
       radioClass   : 'iradio_flat-green'
@@ -178,7 +180,7 @@
     $('.dropdown').on('show.bs.dropdown', function(e){
       $(this).find('.dropdown-menu').first().stop(true, true).slideDown(300);
     });
-    
+
     $('.dropdown').on('hide.bs.dropdown', function(e){
       $(this).find('.dropdown-menu').first().stop(true, true).slideUp(200);
     });
@@ -207,7 +209,7 @@
         });
 
         $('.datatable').DataTable({});
-        
+
       });
 
         $('.input_only_num').keypress(function(event) {
@@ -220,35 +222,35 @@
         });
 
         $(".numbersonly").keydown(function (e) {
-        // Prevent shift key since its not needed  
+        // Prevent shift key since its not needed
         if (e.shiftKey == true) {
             e.preventDefault();
         }
-        // Allow Only: keyboard 0-9, numpad 0-9  
+        // Allow Only: keyboard 0-9, numpad 0-9
         if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)
-        //Allow Only: backspace, tab, left arrow, right arrow  
+        //Allow Only: backspace, tab, left arrow, right arrow
         ||
         e.keyCode == 8 || e.keyCode == 9 || e.keyCode == 37 || e.keyCode == 39
-        //Allow Only: delete, home, end  
+        //Allow Only: delete, home, end
         ||
         e.keyCode == 46 || e.keyCode == 36 || e.keyCode == 35
-        //Allow Only: .(full stop [keyboar, numpad]) and check if there is more than one .(full stop)  
+        //Allow Only: .(full stop [keyboar, numpad]) and check if there is more than one .(full stop)
         ||
         ((e.keyCode == 190 || e.keyCode == 110) && $(this).val().indexOf('.') < 0)) {
-            // Allow normal operation  
+            // Allow normal operation
         } else {
-            // Prevent the rest  
+            // Prevent the rest
             e.preventDefault();
         }
-        
+
         });
-        
+
         $(".numbersonly").bind("drop dragover", function (e) {
             e.preventDefault();
         });
 
     </script>
-    
+
 
 
 
