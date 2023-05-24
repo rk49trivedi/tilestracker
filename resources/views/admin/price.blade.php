@@ -14,8 +14,8 @@
         </div>
         <div class="box-body">
           <div class="col-md-12">
-
-            @if(session()->has('success'))
+              
+              @if(session()->has('success'))
                         <div class="form-col col-md-12 col-sm-12 alert alert-success">
                             {{session()->get('success')}}
                         </div>
@@ -26,7 +26,7 @@
                             {{session()->get('error')}}
                         </div>
                     @endif
-
+                    
             @foreach($allPrice as $price)
 
 

@@ -25,6 +25,8 @@ Route::get('/contact',[HomeController::class,'Showcontact']);
 Route::post('/sendemail', [HomeController::class, 'sendEmail']);
 Route::get('/about',[HomeController::class,'Showabout']);
 
+Route::post('/rezorpay-return', [OrderController::class, 'rezorPayReturn']);
+
 
 Route::post('/search-image', [ImagesController::class, 'searchImages'])->name('search-image');
 Route::get('/search-image',function(){

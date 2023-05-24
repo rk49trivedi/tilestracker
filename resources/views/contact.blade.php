@@ -36,7 +36,7 @@
                                 <div class="block-inner">
                                     <div class="icon-box wow zoomInStable" data-wow-delay="0ms" data-wow-duration="2000ms"><span class="flaticon-placeholder-1"></span></div>
                                     <h4>Address</h4>
-                                    <div class="text">PO Box 16122 Collins Street West Victoria 8007 Canada.</div>
+                                    <div class="text">PO Box 16122 Collins Street West Victoria 8007 Rajkot.</div>
                                 </div>
                             </div>
                             <div class="info-block">
@@ -44,8 +44,7 @@
                                     <div class="icon-box wow zoomInStable" data-wow-delay="300ms" data-wow-duration="2000ms"><span class="flaticon-technology-2"></span></div>
                                     <h4>Phone Number</h4>
                                     <div class="text">
-                                        <a href="tel:(+48)564-334-21-22-34">(+48) 564-334-21-22-34</a> <br>
-                                        <a href="tel:(+48)564-334-21-25">(+48) 564-334-21-25</a>
+                                        <a href="tel:(+91)7405306034">(+91) 7405306034</a>
                                     </div>
                                 </div>
                             </div>
@@ -54,8 +53,7 @@
                                     <div class="icon-box wow zoomInStable" data-wow-delay="600ms" data-wow-duration="2000ms"><span class="flaticon-email-1"></span></div>
                                     <h4>Email Address</h4>
                                     <div class="text">
-                                        <a href="mailto:info@hotera.com">info@hotera.com</a> <br>
-                                        <a href="mailto:info@example.com">info@example.com</a>
+                                        <a href="mailto:dipeshmungara@gmail.com">dipeshmungara@gmail.com</a>
                                     </div>
                                 </div>
                             </div>

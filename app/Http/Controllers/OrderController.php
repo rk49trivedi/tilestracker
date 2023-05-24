@@ -110,6 +110,43 @@ class OrderController extends Controller
         }
         
         
+        exit;
+
+        $payment = $api->payment->fetch($request->input('razorpay_payment_id'));
+
+
+        $payment_id = $request->input('razorpay_payment_id');
+        $order_id = $payment->notes->order_id;
+
+        $string = $order_id . '|' . $payment_id;
+        $signature = hash_hmac('sha256', $string, $api_secret);
+        $signature = base64_encode($signature);
+        
+        
+        
+        
+
+        try {
+
+            $attributes = array(
+                'razorpay_order_id' => $order_id,
+                'razorpay_payment_id' => $payment_id,
+                'razorpay_signature' => $signature
+            );
+        
+            $api->utility->verifyPaymentSignature($attributes);
+            
+            echo '<pre>';
+        print_r($request->all());
+        exit;
+            
+            return redirect('orders')->with('success','Payment successfully completed');
+
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+            exit;
+            //return redirect('orders')->with('error',$e->getMessage());
+        }
 
     }
 
