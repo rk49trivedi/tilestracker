@@ -82,7 +82,7 @@
             <div class="inner clearfix">
                 <div class="copyright">&copy; 2023 Image Finder - All Right Reserved</div>
                 <div class="bottom-links">
-                    <a href="#">Terms of Service</a> &ensp;|&ensp; <a href="https://merchant.razorpay.com/policy/LkOW1Gj6wQKl8A/privacy">Privacy Policy</a>
+                    <a href="https://merchant.razorpay.com/policy/LkOW1Gj6wQKl8A/shipping">Shipping & Delivery</a> &ensp;|&ensp; <a href="https://merchant.razorpay.com/policy/LkOW1Gj6wQKl8A/terms">Terms and Conditions</a> &ensp;|&ensp; <a href="https://merchant.razorpay.com/policy/LkOW1Gj6wQKl8A/privacy">Privacy Policy</a> &ensp;|&ensp; <a href="https://merchant.razorpay.com/policy/LkOW1Gj6wQKl8A/refund">Cancellation and Refund</a>
                 </div>
             </div>
         </div>
