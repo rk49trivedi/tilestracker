@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Razorpay\Api\Api;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class OrderController extends Controller
 {
@@ -23,14 +24,15 @@ class OrderController extends Controller
     }
     public function viewOrders(){
 
+        $delPendingOrder = DB::table('orders')->where('status','pending')->where('user_id',session()->get('unlocker_user')[0])->delete();
         $allOrders = DB::table('orders')->join('price','orders.plan_id','=','price.id')->select('price.name','orders.*')->where('user_id',session()->get('unlocker_user')[0])->orderBy('order_id','desc')->paginate(10);
         return view('orders',compact('allOrders'));
     }
 
     public function processtoPay(Request $request){
         
-        $api_key = 'rzp_test_y1JxbNUs1Aw0r9';
-        $api_secret = 'DXpokIEhKme19AC05990F2S5';
+        $api_key = env('REZOR_API_KEY');
+        $api_secret = env('REZOR_SECRET_KEY');
 
         $api = new Api($api_key, $api_secret);
 
@@ -46,10 +48,7 @@ class OrderController extends Controller
                 'email' => $request->email,
             ],
         ]);
-
         
-        // create order
-
         $insertData = DB::table('orders')->insert(['user_id'=>session()->get('unlocker_user')[0],'plan_id'=>$request->plan_id,'price'=>$request->amount,'transaction_id'=>$order->id,'order_json'=>json_encode($order)]);
         if($insertData){
 
@@ -70,8 +69,8 @@ class OrderController extends Controller
         
         $input = $request->all();
         
-        $api_key = 'rzp_test_y1JxbNUs1Aw0r9';
-        $api_secret = 'DXpokIEhKme19AC05990F2S5';
+        $api_key = env('REZOR_API_KEY');
+        $api_secret = env('REZOR_SECRET_KEY');
 
         $api = new Api($api_key, $api_secret);
         
@@ -83,12 +82,33 @@ class OrderController extends Controller
             try {
                 $response = $api->payment->fetch($input['razorpay_payment_id'])->capture(array('amount' => $payment->amount));
                 
+                $orderDetail = DB::table('orders')->where('transaction_id',$order_id)->first();
+                $planDetails = DB::table('price')->where('id',$orderDetail->plan_id)->first();
+
+                $currentDate = Carbon::now();
+
+                $formattedStartDate = $currentDate->format('Y-m-d H:i:s');
+
+                if($planDetails->interval == 'year'){
+                    $modifiedDate = $currentDate->addYears(1);
+                }else if($planDetails->interval == 'month'){
+                    $modifiedDate = $currentDate->addMonths(1);
+                }else{
+                    $modifiedDate = $currentDate->addDays(1);
+                }
+
+                $formattedEndDate = $modifiedDate->format('Y-m-d H:i:s');
+
+                DB::table('orders')->where('user_id',$orderDetail->user_id)->where('status','completed')->where('transaction_id','<>',$order_id)->update(['status'=>'end']);
+
                 DB::table('orders')->where('transaction_id',$order_id)->update([
                     'r_payment_id' => $response['id'],
                     'method' => $response['method'],
                     'currency' => $response['currency'],
                     'user_email' => $response['email'],
                     'status' => 'completed',
+                    'start_date' => $formattedStartDate,
+                    'end_date' => $formattedEndDate,
                     'order_json' => json_encode((array)$response)
                 ]);
                 

@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Eloquent;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class TilesImage extends Model
 {
@@ -18,6 +20,23 @@ class TilesImage extends Model
         'cat_id',
         'stock'
     ];
+
+    public static function checkPlans($userid){
+        $checkPlans = DB::table('orders')->where('user_id',$userid)->where('status','completed')->first();
+        if($checkPlans){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+
+    public static function checkPlanEnd(){
+
+        $currentDate = Carbon::now();
+        DB::table('orders')->where('status','completed')->whereDate('end_date', '<', $currentDate)->update(['status'=>'end']);
+
+    }
+    
 
 
     public static function compareImages($pathA, $pathB)

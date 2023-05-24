@@ -18,13 +18,16 @@ class ImagesController extends Controller
 
     public function searchImages(Request $request){
 
-        try{
 
-        }catch(Exception $e){
-            return redirect()->back()->with('error','Please upload image to search');
-            exit;
+        $limitSearch = 0;
+
+        if(session()->has('unlocker_user')){
+            $userId = session()->get('unlocker_user')[0];
+            $returnData = TilesImage::checkPlans($userId);
+            if($returnData == 1){
+                $limitSearch = 1;
+            }
         }
-       
 
         $allMatchesImages = array();
         
@@ -81,11 +84,13 @@ class ImagesController extends Controller
                             if($similarityRate >= 25 && $similarityRate <= 100){
                                 $res['imagePath'] = $imagetwo;
                                 $res['title'] = $imageName;
+                                $res['rate_match'] = $similarityRate;
                                 $res['category'] = $catDetails->name;
                                 array_push($allMatchesImages,$res);
-                            }else if($similarityRate >= 3){
+                            }else if($similarityRate >= 100 && $similarityRate <= 10000){
                                 $res['imagePath'] = $imagetwo;
                                 $res['title'] = $imageName;
+                                $res['rate_match'] = $similarityRate;
                                 $res['category'] = $catDetails->name;
                                 array_push($allMatchesImages,$res);
                             }
@@ -101,10 +106,43 @@ class ImagesController extends Controller
                 unlink($path_removal);
             }
 
+           
+
+
+            // Separate the array by rate_match
+            $separatedArray = array();
+            foreach ($allMatchesImages as $item) {
+                $rateMatch = $item['rate_match'];
+                $res['imagePath'] = $item['imagePath'];
+                $res['title'] = $item['title'];
+                $res['rate_match'] = $item['rate_match'];
+                $res['category'] = $item['category'];
+                $separatedArray[$rateMatch][] = $res;
+                
+            }
+
+
+//             echo '<pre>';
+//             print_r($separatedArray);
+
+// // Loop through the separated array and display titles
+// foreach ($separatedArray as $rateMatch => $filterImages) {
+//     echo "Titles with rate_match $rateMatch:<br>";
+//     foreach ($filterImages as $filterImagesinner) {
+//         echo $filterImagesinner['title'] . "<br>";
+//         echo $filterImagesinner['imagePath'] . "<br>";
+//     }
+//     echo "<br>";
+// }
+
+
+//             exit;
+
+            
 
             $categories = Category::orderBy('name','asc')->get();
             
-            return view('searchimg',compact('allMatchesImages','categories','currentCat'));
+            return view('searchimg',compact('allMatchesImages','categories','currentCat','limitSearch','separatedArray'));
             exit;
 
         }else if($request->category_name && $request->category_name != ''){
@@ -132,7 +170,7 @@ class ImagesController extends Controller
             $categories = Category::orderBy('name','asc')->get();
             $currentCat = $request->category_name;
             
-            return view('searchimg',compact('allMatchesImages','categories','currentCat'));
+            return view('searchimg',compact('allMatchesImages','categories','currentCat','limitSearch'));
             exit;
         
         }else{

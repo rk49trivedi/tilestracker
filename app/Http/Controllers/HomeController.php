@@ -18,9 +18,19 @@ class HomeController extends Controller
     }
 
     public function Showpricing(){
-        $allPriceData = DB::table('price')->get();
 
-        return view('pricing',compact('allPriceData'));
+        $allPriceData = DB::table('price')->get();
+        $currentPlan = 0;
+
+        if(session()->has('unlocker_user')){
+            $userId = session()->get('unlocker_user')[0];
+            $checkPlans = DB::table('orders')->where('user_id',$userId)->where('status','completed')->orderBy('order_id','desc')->first();
+            if($checkPlans){
+                $currentPlan = $checkPlans->plan_id;
+            }
+        }
+
+        return view('pricing',compact('allPriceData','currentPlan'));
     }
 
     public function ShowLogin(){

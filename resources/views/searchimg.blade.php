@@ -30,12 +30,81 @@
 
         @include('layout.searchfilter')
 
-        @if(session()->has('unlocker_user'))
+        @if($limitSearch == 1)
 
         <div class="row clearfix mt-5">
+
+            @if(count($allMatchesImages))
+
+            <div class="col-md-12  my-5 "><h2 class="text-center text-success">Result Match</h2></div>
+
+            @foreach ($separatedArray as $rateMatch => $filterImages) 
             
+            
+            
+            
+
+            @if($rateMatch > 100)
+            @php $percentage = ($rateMatch/100) @endphp
+            @else
+            @php $percentage = ($rateMatch) @endphp
+            @endif
+
+            <div class="col-md-12  mb-2 "><h4 class="text-left">{{$percentage}}% result</h4></div>
+
+            @foreach($filterImages as $filterImagesinner) 
+
+
+                <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
+                    <div class="inner-box">
+                        <div class="image-box">
+                            <figure class="image">
+                                <a><img src="{{$filterImagesinner['imagePath']}}" alt="" title=""></a>
+                            </figure>
+                        </div>
+                        <div class="lower-box">
+                            <h4>{{$filterImagesinner['category']}}</h4>
+                            <h6 style="display:none;">{{$filterImagesinner['rate_match']}}</h6>
+                            <!-- <div class="pricing clearfix">
+                                <div class="price">Category : <span>Tiles</span></div>
+                                <div class="price tags-f">Tags : <span>Tags1, Tags 2</span></div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+
+
+                @endforeach
+
+                
+
+                @endforeach
+
+            @else
+
+            <div class="col-md-12">
+                    <h2 class="text-center my-5 text-danger">No result found..</h2>
+                </div>
+
+            @endif
+            
+            
+
+
+        </div>
+
+        
+
+        @else
+
+            @php $limit = 5; $counter = 0; @endphp
+            <div class="row clearfix mt-5">
+
+            @if(count($allMatchesImages))
+
             @foreach($allMatchesImages as $filterImages) 
 
+                @if($counter <= $limit)
 
                 <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
                     <div class="inner-box">
@@ -46,49 +115,28 @@
                         </div>
                         <div class="lower-box">
                             <h4>{{$filterImages['category']}}</h4>
-                            <div class="pricing clearfix">
+                            <h6 style="display:none;">{{$filterImages['rate_match']}}</h6>
+                            <!-- <div class="pricing clearfix">
                                 <div class="price">Category : <span>Tiles</span></div>
                                 <div class="price tags-f">Tags : <span>Tags1, Tags 2</span></div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
+                @endif
 
-
-            @endforeach
-        </div>
-
-        
-
-        @else
-
-            @php $limit = 5; $counter = 0; @endphp
-            <div class="row clearfix mt-5">
-                @foreach($allMatchesImages as $filterImages) 
-
-                    @if($counter <= $limit)
-
-                    <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
-                        <div class="inner-box">
-                            <div class="image-box">
-                                <figure class="image">
-                                    <a><img src="{{$filterImages['imagePath']}}" alt="" title=""></a>
-                                </figure>
-                            </div>
-                            <div class="lower-box">
-                                <h4>{{$filterImages['category']}}</h4>
-                                <div class="pricing clearfix">
-                                    <div class="price">Category : <span>Tiles</span></div>
-                                    <div class="price tags-f">Tags : <span>Tags1, Tags 2</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @endif
-
-                    @php $counter++; @endphp
+                @php $counter++; @endphp
 
                 @endforeach
+
+            @else
+
+            <div class="col-md-12">
+                    <h2 class="text-center text-danger">No result found..</h2>
+                </div>
+
+            @endif
+                
             </div>
 
             <div class="row text-center clearfix py-5">

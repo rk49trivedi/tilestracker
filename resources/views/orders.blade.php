@@ -55,9 +55,9 @@ p.text-sm.text-gray-700.leading-5{margin:20px 0px;}
                         <table class="table">
                             <thead>
                                 <th>OrderID</th>
-                                <th>Transaction ID</th>
+                                <th>Order Detail</th>
+                                <th>Expiry</th>
                                 <th>Status</th>
-                                <th>Plan</th>
                             </thead>
                             
                         @foreach($allOrders as $priceDetail)
@@ -65,15 +65,19 @@ p.text-sm.text-gray-700.leading-5{margin:20px 0px;}
                         <tbody>
                             <tr>
                                 <td>#{{$priceDetail->order_id}}</td>
-                                <td>{{$priceDetail->transaction_id}}</td>
                                 <td>
-                                    @if($priceDetail->status == 'pending')
+                                    <div><strong>Transaction ID : </strong> {{$priceDetail->transaction_id}}</div>
+                                    <div><strong>Price : </strong>Rs.{{number_format($priceDetail->price)}}</div>
+                                    <div><strong>Plan : </strong>{{$priceDetail->name}}</div>
+                                </td>
+                                <td>{{date('Y-m-d',strtotime($priceDetail->end_date))}}</td>
+                                <td>
+                                    @if($priceDetail->status == 'pending' || $priceDetail->status == 'end' || $priceDetail->status == 'over')
                                     <span class="badge badge-danger">{{$priceDetail->status}}</span>
                                     @else
                                     <span class="badge badge-success">{{$priceDetail->status}}</span>
                                     @endif
                                 </td>
-                                <td>{{$priceDetail->name}}</td>
                             </tr>
                         </tbody>
                     

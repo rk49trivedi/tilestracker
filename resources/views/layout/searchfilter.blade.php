@@ -14,13 +14,7 @@
                     </select>
                     </div>
                 </div>
-                <div class="form-group col-xl-3 col-lg-6 col-md-6 col-sm-12">
-                    <div class="field-label">Search here: Title | Tags</div>
-                    <div class="field-inner">
-                    <input type="text" class="border-0 form-control" name="search_item" placeholder="Search here..">
-                    </div>
-                </div>
-                <div class="form-group col-xl-3 col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12">
                     <div class="field-label">Search by Image</div>
                     <div class="field-inner">
                         <input class="upload-img" type="file" name="searchimagefile" id="searchImageFile" accept=".jpg" placeholder="">

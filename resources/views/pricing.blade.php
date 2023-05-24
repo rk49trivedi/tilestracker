@@ -56,7 +56,13 @@
                             </ul>
                             <div class="card-body text-center">
                                 @if(session()->has('unlocker_user'))
-                                <a href="{{url('cart/'.$priceDetail->id)}}" class="theme-btn btn-style-one"><span class="btn-title">Select</span></a>
+                                    @if($currentPlan == $priceDetail->id)
+                                    <button class="btn btn-danger" disabled>Current Plan</button>
+                                    
+                                    @else
+                                    <a href="{{url('cart/'.$priceDetail->id)}}" class="theme-btn btn-style-one"><span class="btn-title">Select</span></a>
+                                    @endif
+                                    
                                 @else
                                 <a href="{{url('login')}}" class="theme-btn btn-style-one"><span class="btn-title">Select</span></a>
                                 @endif
