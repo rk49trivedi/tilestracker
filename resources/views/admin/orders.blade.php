@@ -16,39 +16,48 @@
           <div class="row">
             <div class="col-md-12">
               <div class="table-responsive">
-                <table class="table table-bordered table-hover">
-                  <thead>
-                    <th>#OrderID</th>
-                    <th>Customer</th>
-                    <th>Plan</th>
-                    <th>Transaction ID</th>
-                    <th>Payment Status</th>
-                  </thead>
-                      @foreach($allOrders as $priceDetail)
+                <table class="table">
+                            <thead>
+                                <th>OrderID</th>
+                                <th>Order Detail</th>
+                                <th>Expiry</th>
+                                <th>Status</th>
+                            </thead>
+                            
+                        @foreach($allOrders as $priceDetail)
 
                         <tbody>
                             <tr>
                                 <td>#{{$priceDetail->order_id}}</td>
                                 <td>
-                                  <div><strong>Customer ID : </strong>#{{$priceDetail->user_id}}</div>
-                                  <div><strong>Email : </strong>{{$priceDetail->email}}</div>
+                                    <div><strong>Transaction ID : </strong> {{$priceDetail->transaction_id}}</div>
+                                    <div><strong>Price : </strong>Rs.{{number_format($priceDetail->price)}}</div>
+                                    <div><strong>Plan : </strong>{{$priceDetail->name}}</div>
                                 </td>
-                                <td>{{$priceDetail->name}}</td>
-                                <td>{{$priceDetail->transaction_id}}</td>
+                                <td>{{date('Y-m-d',strtotime($priceDetail->end_date))}}</td>
                                 <td>
-                                    @if($priceDetail->status == 'pending')
+                                    @if($priceDetail->status == 'pending' || $priceDetail->status == 'end' || $priceDetail->status == 'over')
                                     <span class="label label-danger">{{$priceDetail->status}}</span>
                                     @else
                                     <span class="label label-success">{{$priceDetail->status}}</span>
                                     @endif
                                 </td>
-                                
                             </tr>
                         </tbody>
                     
-                    @endforeach
+                        @endforeach
+                        
+                        <tfoot>
+                          <tr>
+                            @if ($allOrders->links()->paginator->hasPages())
+                            <td class="pagination">
+                                {{ $allOrders->links() }}
+                            </td>
+                            @endif
+                          </tr>
+                        </tfoot>
 
-                </table>
+                        </table>
               </div>
             </div>
           </div>

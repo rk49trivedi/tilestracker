@@ -69,7 +69,7 @@ class AdminController extends Controller
 
     public function viewOrders(){
 
-        $allOrders = DB::table('orders')->join('users','users.id','=','orders.user_id')->join('price','orders.plan_id','=','price.id')->select('price.name','orders.*','users.email')->get();
+        $allOrders = DB::table('orders')->join('users','users.id','=','orders.user_id')->join('price','orders.plan_id','=','price.id')->select('price.name','orders.*','users.email')->paginate(10);
         return view('admin/orders',compact('allOrders'));
     }
     
