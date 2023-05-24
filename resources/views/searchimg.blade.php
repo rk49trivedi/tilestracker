@@ -54,13 +54,13 @@
 
             @foreach($filterImages as $filterImagesinner) 
 
-                    @php $getFilename = $filterImages['imagePath'];
+                    @php $getFilename = $filterImagesinner['imagePath'];
                         
-                    $file1 = explode('.',basename($filterImages['imagePath']));
+                    $file1 = explode('.',basename($filterImagesinner['imagePath']));
                     if(isset($file1)){
                         $fileName = $file1[0];
                     }else{
-                        $fileName = basename($filterImages['imagePath']);
+                        $fileName = basename($filterImagesinner['imagePath']);
                     }
                     
                     @endphp
