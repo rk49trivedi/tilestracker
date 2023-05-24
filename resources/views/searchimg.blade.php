@@ -54,7 +54,16 @@
 
             @foreach($filterImages as $filterImagesinner) 
 
-
+                    @php $getFilename = $filterImages['imagePath'];
+                        
+                    $file1 = explode('.',basename($filterImages['imagePath']));
+                    if(isset($file1)){
+                        $fileName = $file1[0];
+                    }else{
+                        $fileName = basename($filterImages['imagePath']);
+                    }
+                    
+                    @endphp
                 <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
                     <div class="inner-box">
                         <div class="image-box">
@@ -65,6 +74,7 @@
                         <div class="lower-box">
                             <h4>{{$filterImagesinner['category']}}</h4>
                             <h6 style="display:none;">{{$filterImagesinner['rate_match']}}</h6>
+                            <p>{{$fileName}}</p>
                             <!-- <div class="pricing clearfix">
                                 <div class="price">Category : <span>Tiles</span></div>
                                 <div class="price tags-f">Tags : <span>Tags1, Tags 2</span></div>
@@ -100,7 +110,9 @@
             @php $limit = 5; $counter = 0; @endphp
             <div class="row clearfix mt-5">
 
-            @if(count($allMatchesImages))
+            @if(count($allMatchesImages)).
+
+            <div class="col-md-12  my-5 "><h2 class="text-center text-success">Result Match</h2></div>
 
             @foreach($allMatchesImages as $filterImages) 
 
@@ -113,9 +125,21 @@
                                 <a><img src="{{$filterImages['imagePath']}}" alt="" title=""></a>
                             </figure>
                         </div>
+
+                        @php $getFilename = $filterImages['imagePath'];
+                        
+                        $file1 = explode('.',basename($filterImages['imagePath']));
+                        if(isset($file1)){
+                            $fileName = $file1[0];
+                        }else{
+                            $fileName = basename($filterImages['imagePath']);
+                        }
+                        
+                        @endphp
                         <div class="lower-box">
                             <h4>{{$filterImages['category']}}</h4>
                             <h6 style="display:none;">{{$filterImages['rate_match']}}</h6>
+                            <p>{{$fileName}}</p>
                             <!-- <div class="pricing clearfix">
                                 <div class="price">Category : <span>Tiles</span></div>
                                 <div class="price tags-f">Tags : <span>Tags1, Tags 2</span></div>

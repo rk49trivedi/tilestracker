@@ -162,6 +162,7 @@ class ImagesController extends Controller
                     $res['imagePath'] = $imagetwo;
                     $res['title'] = $imageName;
                     $res['category'] = $catDetails->name;
+                    $res['rate_match'] = 100;
                     array_push($allMatchesImages,$res);
                 }
                 
