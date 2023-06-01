@@ -1,10 +1,12 @@
 @extends("admin.master")
 @section("content") 
 
+@if($allTiles)
+
 <div class="content-wrapper">
   <section class="content-header">
-    <h1>{{$allTiles->name}} Images</h1>
-    <ol class="breadcrumb"><li class="active">{{$allTiles->name}} Images</li></ol>
+    <h1>{{$allTiles->display_name}} Images</h1>
+    <ol class="breadcrumb"><li class="active">{{$allTiles->display_name}} Images</li></ol>
   </section>
   <section class="content">
     
@@ -95,4 +97,34 @@ function delme(id) {
 }
 
 </script>
+
+
+
+@else
+
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1> Images</h1>
+    <ol class="breadcrumb"><li class="active"> Images</li></ol>
+  </section>
+  <section class="content">
+    
+    <div class="box ">
+      <div class="box-body">
+        <div class="row">
+
+          <div class="col-md-12">
+            <div class="col-md-12 alert alert-success" style="display:block;">
+
+                    No record found
+
+                </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+@endif
+
 @endsection 

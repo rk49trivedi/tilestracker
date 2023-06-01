@@ -51,7 +51,7 @@ class ImagesController extends Controller
                 if($request->category_name && $request->category_name != ''){
                     $catName = str_replace('_',' ',ucfirst($request->category_name));
                     $currentCat = $request->category_name;
-                    $allCatImages = Category::join('images','images.cat_id','=','category.id')->where('category.name',$catName)->get();
+                    $allCatImages = Category::join('images','images.cat_id','=','category.id')->where('category.display_name',$catName)->get();
                 }else{
                     $allCatImages = Category::join('images','images.cat_id','=','category.id')->get();
                     $currentCat = '';
@@ -148,8 +148,8 @@ class ImagesController extends Controller
         }else if($request->category_name && $request->category_name != ''){
            
             $catName = str_replace('_',' ',ucfirst($request->category_name));
-            $allCatImages = Category::join('images','images.cat_id','=','category.id')->where('category.name',$catName)->get();
-           
+            $allCatImages = Category::join('images','images.cat_id','=','category.id')->where('category.display_name',$catName)->get();
+       
             
             foreach($allCatImages as $catDetails){
                 $catName = str_replace(' ','_',strtolower($catDetails->name));
@@ -281,7 +281,7 @@ class ImagesController extends Controller
     public function viewTiles($catid){
 
         if(isset($_REQUEST['fileId']) && isset($_REQUEST['filename'])){
-            $savedFile = TilesImage::join('category','category.id','=','images.cat_id')->where('images.id',$_REQUEST['fileId'])->select('category.name','images.*')->first();
+            $savedFile = TilesImage::join('category','category.id','=','images.cat_id')->where('images.id',$_REQUEST['fileId'])->select('category.name','category.display_name','images.*')->first();
             $tileCatname = str_replace(' ','_',strtolower($savedFile->name));
             $arrayData = json_decode($savedFile->stock,true);
             if (($key = array_search($_REQUEST['filename'], $arrayData)) !== false) {
@@ -299,7 +299,7 @@ class ImagesController extends Controller
             }
         }
 
-        $allTiles = TilesImage::join('category','category.id','=','images.cat_id')->where('images.cat_id',$catid)->select('category.name','images.*')->first();
+        $allTiles = TilesImage::join('category','category.id','=','images.cat_id')->where('images.cat_id',$catid)->select('category.name','category.display_name','images.*')->first();
         return view('admin/tiles/view',compact('allTiles'));
 
     }

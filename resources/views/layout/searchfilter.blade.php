@@ -9,7 +9,7 @@
                     <select class="form-control border-0" name="category_name">
                         <option value="">All</option>
                         @foreach($categories as $categoriesDetail)
-                        <option value="{{str_replace(' ','_',strtolower($categoriesDetail->name))}}" @if(isset($currentCat) && $currentCat == str_replace(' ','_',strtolower($categoriesDetail->name))) selected @endif >{{$categoriesDetail->name}}</option>
+                        <option value="{{str_replace(' ','_',strtolower($categoriesDetail->display_name))}}" @if(isset($currentCat) && $currentCat == str_replace(' ','_',strtolower($categoriesDetail->name))) selected @endif >{{$categoriesDetail->display_name}}</option>
                         @endforeach
                     </select>
                     </div>

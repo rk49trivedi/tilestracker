@@ -20,7 +20,7 @@
               <div class="form-group">
                 <div class="input-group">
                   <span class="input-group-addon">Category</span>
-                  <input type="text" class="form-control"  value="{{$category->name}}" placeholder="Category Name" disabled>
+                  <input type="text" class="form-control"  value="{{$category->display_name}}" placeholder="Category Name" disabled>
                 </div>
               </div>
             </div>

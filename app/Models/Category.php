@@ -15,7 +15,8 @@ class Category extends Model
     public $incrementing = true;
     protected $fillable = 
     [
-        'name'
+        'name',
+        'display_name'
     ];
 
 }

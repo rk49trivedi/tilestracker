@@ -35,7 +35,7 @@ class CategoryController extends Controller
             return redirect()->back()->with('error','Category already exist');
         }
         $saveCat = Category::find($request->hidid);
-        $saveCat->name = $request->catName;
+        $saveCat->display_name = $request->catName;
         $saveCat->save();
 
        return redirect()->back()->with('success','Category Successfully saved');
@@ -49,6 +49,7 @@ class CategoryController extends Controller
         }
         $saveCat = new Category();
         $saveCat->name = $request->catName;
+        $saveCat->display_name = $request->catName;
         $saveCat->save();
 
        return redirect()->back()->with('success','Category Successfully saved');

@@ -49,11 +49,7 @@
                     </div>
                     <div class="form-group">
                       <label>Interval</label>
-                      <select  class="form-control" name="interval">
-                        <option value="year" @if($price->interval == 'year') selected @endif>Year</option>
-                        <option value="month" @if($price->interval == 'month') selected @endif>Month</option>
-                        <option value="day" @if($price->interval == 'day') selected @endif>Day</option>
-                      </select>
+                      <input type="text" class="form-control" name="interval" value="{{$price->interval}}">
                     </div>
                     <div class="form-group">
                       <label>Description</label>

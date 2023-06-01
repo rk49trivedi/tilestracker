@@ -23,7 +23,7 @@
                 <tbody>
                   @foreach($allCategory as $categoryDetail)
                   <tr>
-                    <td>{{$categoryDetail->name}}</td>
+                    <td>{{$categoryDetail->display_name}}</td>
                     <td>
                       <a href="{{url('admin/edit-category/'.$categoryDetail->id)}}" class="btn btn-info" target="_blank">Edit</a> 
                       <button data-href="{{url('admin/category?categoryid='.$categoryDetail->id)}}" onclick="delme(this.id)" id="{{$categoryDetail->id}}"  class="btn bg-danger">Delete</button> 
