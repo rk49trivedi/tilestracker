@@ -85,13 +85,15 @@ class ImagesController extends Controller
                                 $res['imagePath'] = $imagetwo;
                                 $res['title'] = $imageName;
                                 $res['rate_match'] = $similarityRate;
-                                $res['category'] = $catDetails->name;
+                                $res['category'] = $catDetails->display_name;
+                                $res['category_slug'] = $catDetails->name;
                                 array_push($allMatchesImages,$res);
                             }else if($similarityRate >= 100 && $similarityRate <= 10000){
                                 $res['imagePath'] = $imagetwo;
                                 $res['title'] = $imageName;
                                 $res['rate_match'] = $similarityRate;
-                                $res['category'] = $catDetails->name;
+                                $res['category'] = $catDetails->display_name;
+                                $res['category_slug'] = $catDetails->name;
                                 array_push($allMatchesImages,$res);
                             }
 
@@ -117,6 +119,7 @@ class ImagesController extends Controller
                 $res['title'] = $item['title'];
                 $res['rate_match'] = $item['rate_match'];
                 $res['category'] = $item['category'];
+                $res['category_slug'] = $item['category_slug'];
                 $separatedArray[$rateMatch][] = $res;
                 
             }
@@ -161,7 +164,8 @@ class ImagesController extends Controller
                     $imagetwo = url('img/tiles/'.$catName.'/'.$imageName);
                     $res['imagePath'] = $imagetwo;
                     $res['title'] = $imageName;
-                    $res['category'] = $catDetails->name;
+                    $res['category_slug'] = $catDetails->name;
+                    $res['category'] = $catDetails->display_name;
                     $res['rate_match'] = 100;
                     array_push($allMatchesImages,$res);
                 }
