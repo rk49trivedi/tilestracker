@@ -66,6 +66,9 @@ class ImagesController extends Controller
                         foreach($files as $file){
                             $imageName = $file->getRelativePathname();
                             $imagetwo = url('img/tiles/'.$catName.'/'.$imageName);
+                            
+                            $imageOne = str_replace(' ', '%20', $imageOne);
+                            $imagetwo = str_replace(' ', '%20', $imagetwo);
 
                             if(exif_imagetype($imageOne) != IMAGETYPE_JPEG || exif_imagetype($imagetwo) != IMAGETYPE_JPEG){
                                 
@@ -258,8 +261,10 @@ class ImagesController extends Controller
             //$randomfile = 'TilesLover_'.$randomdate.rand(000,9999);
             $randomfile = $file->getClientOriginalName();
             $extname = strtolower($file->getClientOriginalExtension());
+            //$file->storeAs('img/tiles/'.$tilesName,$randomfile.'.'.$extname);
             $file->storeAs('img/tiles/'.$tilesName, $file->getClientOriginalName());
-            $docfilename = $randomfile.'.'.$extname;
+            //$docfilename = $randomfile.'.'.$extname;
+            $docfilename = $randomfile; 
             array_push($blankarray_images, $docfilename);
         }
 
