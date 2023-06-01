@@ -15,7 +15,7 @@ class CategoryController extends Controller
 
         
         if(isset($_REQUEST['categoryid'])){
-            $checkcat = Category::find($_REQUEST['categoryid'])->first();
+            $checkcat = Category::find($_REQUEST['categoryid']);
             if($checkcat){
                 $catName = str_replace(' ', '_', strtolower($checkcat->name));
                 $path = public_path('img/tiles/'.$catName);

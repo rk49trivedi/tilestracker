@@ -66,11 +66,11 @@
                     @endphp
                   @foreach($allTilesImages as $fileName)
                   <tr>
-                    <td><div><img src="{{url('img/tiles/'.$tileCategory.'/'.$fileName['image_slug'])}}" style="width:250px; height:250px;"></div>
-                    <</td>
+                    <td><div><img src="{{url('img/tiles/'.$tileCategory.'/'.$fileName['image_slug'])}}" style="width:250px; height:250px;"/></div>
+                    </td>
                     <td><div class="text-center"><strong>{{$fileName['image_title']}}</strong></div></td>
                     <td>
-                       <button data-href="{{url('admin/tiles?tile_id='.$allTiles->id.'&tilesName='.$fileName['image_slug'])}}" onclick="delme(this.id)" id="{{$allTiles->id}}" data-filename="{{$fileName['image_slug']}}" data-catid="{{$allTiles->cat_id}}" class="btn bg-danger">Delete</button> 
+                       <button data-href="{{url('admin/tiles?tile_id='.$allTiles->id.'&tilesName='.$fileName['image_slug'])}}"  data-imgid="{{$allTiles->id}}" data-filename="{{$fileName['image_slug']}}" data-catid="{{$allTiles->cat_id}}" class="btn bg-danger deleteimagase">Delete</button> 
                     </td>
                   </tr>
                   @endforeach
@@ -86,18 +86,21 @@
 
 <script>
 
-function delme(id) {
-   let filename = $(".image-management #"+id).data("filename");
-   let catID = $(".image-management #"+id).data("catid");
-  bootbox.confirm("<br><div class='alert alert-danger'>Are you sure you want to delete this image?</div>",function(r){
-  
-    if(r){
-        window.location.assign(ADMIN_URL+'view-tiles/'+catID+'?fileId='+id+'&filename='+filename);
-    }
+$(document).on('click','.deleteimagase',function(){
+    
+     let catID = $(this).data("catid");
+     let image_id = $(this).data("imgid");
+     let filename = $(this).data("filename");
+      bootbox.confirm("<br><div class='alert alert-danger'>Are you sure you want to delete this image?</div>",function(r){
+      
+        if(r){
+            window.location.assign(ADMIN_URL+'view-tiles/'+catID+'?fileId='+image_id+'&filename='+filename);
+        }
+    
+    });
 
 });
 
-}
 
 </script>
 
