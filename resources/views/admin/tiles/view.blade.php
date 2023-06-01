@@ -55,6 +55,7 @@
                 <thead>
                   <tr>
                     <th>Images</th>
+                     <th>Images Name</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -65,9 +66,11 @@
                     @endphp
                   @foreach($allTilesImages as $fileName)
                   <tr>
-                    <td><img src="{{url('img/tiles/'.$tileCategory.'/'.$fileName)}}" style="width:250px; height:250px;"></td>
+                    <td><div><img src="{{url('img/tiles/'.$tileCategory.'/'.$fileName['image_slug'])}}" style="width:250px; height:250px;"></div>
+                    <</td>
+                    <td><div class="text-center"><strong>{{$fileName['image_title']}}</strong></div></td>
                     <td>
-                       <button data-href="{{url('admin/tiles?tile_id='.$allTiles->id.'&tilesName='.$fileName)}}" onclick="delme(this.id)" id="{{$allTiles->id}}" data-filename="{{$fileName}}" data-catid="{{$allTiles->cat_id}}" class="btn bg-danger">Delete</button> 
+                       <button data-href="{{url('admin/tiles?tile_id='.$allTiles->id.'&tilesName='.$fileName['image_slug'])}}" onclick="delme(this.id)" id="{{$allTiles->id}}" data-filename="{{$fileName['image_slug']}}" data-catid="{{$allTiles->cat_id}}" class="btn bg-danger">Delete</button> 
                     </td>
                   </tr>
                   @endforeach

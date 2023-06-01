@@ -74,7 +74,7 @@
                         <div class="lower-box">
                             <h4>{{$filterImagesinner['category']}}</h4>
                             <h6 style="display:none;">{{$filterImagesinner['rate_match']}}</h6>
-                            <p>{{$fileName}}</p>
+                            <p>{{$filterImagesinner['imageName']}}</p>
                             <!-- <div class="pricing clearfix">
                                 <div class="price">Category : <span>Tiles</span></div>
                                 <div class="price tags-f">Tags : <span>Tags1, Tags 2</span></div>
@@ -139,7 +139,7 @@
                         <div class="lower-box">
                             <h4>{{$filterImages['category']}}</h4>
                             <h6 style="display:none;">{{$filterImages['rate_match']}}</h6>
-                            <p>{{$fileName}}</p>
+                            <p>{{$filterImages['imageName']}}</p>
                             <!-- <div class="pricing clearfix">
                                 <div class="price">Category : <span>Tiles</span></div>
                                 <div class="price tags-f">Tags : <span>Tags1, Tags 2</span></div>

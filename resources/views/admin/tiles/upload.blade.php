@@ -24,12 +24,22 @@
                 </div>
               </div>
             </div>
+            
+            <div class="col-md-12">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon">Image Name</span>
+                  <input type="text" class="form-control" name="img_name"  value="{{$category->img_name}}" placeholder="Image Name">
+                </div>
+              </div>
+            </div>
+            
             <input type="hidden" value="{{$category->id}}" name="hidid">
             <div class="col-md-12">
               <div class="form-group">
                 <div class="input-group">
                   <span class="input-group-addon">Image</span>
-                  <input type="file" class="form-control"  name="uploadfile[]" accept=".jpg,.png,.jpeg" multiple required>
+                  <input type="file" class="form-control"  name="uploadfile[]" accept=".jpg,.jpeg" multiple required>
                 </div>
               </div>
             </div>

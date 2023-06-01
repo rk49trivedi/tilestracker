@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\TilesImage;
 use Exception;
 use File;
+use Illuminate\Support\Facades\Storage;
 
 class ImagesController extends Controller
 {
@@ -43,7 +44,7 @@ class ImagesController extends Controller
             $file->storeAs('img/tiles/compare/',$randomfile.'.'.$extname);
             $docfilename = $randomfile.'.'.$extname;
             $fullpathToCompare = url('img/tiles/compare/'.$docfilename);
-            $path_removal = $_SERVER['DOCUMENT_ROOT'].'/img/tiles/compare/'.$docfilename;
+            $path_removal = '/img/tiles/compare/'.$docfilename;
 
             if($fullpathToCompare != ''){
                 $imageOne =  $fullpathToCompare;
@@ -65,6 +66,33 @@ class ImagesController extends Controller
                         $files = File::files(public_path('img/tiles/'.$catName));
                         foreach($files as $file){
                             $imageName = $file->getRelativePathname();
+                            
+                            $realImageNames = '';
+                            
+                            
+                           $catDetailsImag =  TilesImage::find($catDetails->id);
+                           if($catDetailsImag){
+                               
+                               $arrayData = json_decode($catDetailsImag->stock,true);
+            
+                                $imageSlugToDelete = $imageName;
+                                
+                               
+                    
+                                foreach ($arrayData as $key => $item) {
+                                    if ($item['image_slug'] === $imageSlugToDelete) {
+                                        
+                                        $realImageNames = $item['image_title'];
+                                        break;
+                                    }
+                                }
+                               
+                           }
+                            
+                            
+                            
+                            
+                            
                             $imagetwo = url('img/tiles/'.$catName.'/'.$imageName);
 
                             if(exif_imagetype($imageOne) != IMAGETYPE_JPEG || exif_imagetype($imagetwo) != IMAGETYPE_JPEG){
@@ -83,6 +111,7 @@ class ImagesController extends Controller
 
                             if($similarityRate >= 25 && $similarityRate <= 100){
                                 $res['imagePath'] = $imagetwo;
+                                $res['imageName'] = $realImageNames;
                                 $res['title'] = $imageName;
                                 $res['rate_match'] = $similarityRate;
                                 $res['category'] = $catDetails->display_name;
@@ -90,6 +119,7 @@ class ImagesController extends Controller
                                 array_push($allMatchesImages,$res);
                             }else if($similarityRate >= 100 && $similarityRate <= 10000){
                                 $res['imagePath'] = $imagetwo;
+                                $res['imageName'] = $realImageNames;
                                 $res['title'] = $imageName;
                                 $res['rate_match'] = $similarityRate;
                                 $res['category'] = $catDetails->display_name;
@@ -103,11 +133,10 @@ class ImagesController extends Controller
                     
                 }
             }
-
-            if(file_exists($path_removal)) {
-                unlink($path_removal);
+            
+            if (Storage::exists($path_removal)) {
+                Storage::delete($path_removal);
             }
-
            
 
 
@@ -116,6 +145,7 @@ class ImagesController extends Controller
             foreach ($allMatchesImages as $item) {
                 $rateMatch = $item['rate_match'];
                 $res['imagePath'] = $item['imagePath'];
+                $res['imageName'] = $item['imageName'];
                 $res['title'] = $item['title'];
                 $res['rate_match'] = $item['rate_match'];
                 $res['category'] = $item['category'];
@@ -157,12 +187,14 @@ class ImagesController extends Controller
             foreach($allCatImages as $catDetails){
                 $catName = str_replace(' ','_',strtolower($catDetails->name));
                 
-                $files = json_decode($catDetails->stock);
+                $files = json_decode($catDetails->stock,true);
                 
                 foreach($files as $file){
-                    $imageName = $file;
+                    $imageName = $file['image_slug'];
+                    $imageName1 = $file['image_title'];
                     $imagetwo = url('img/tiles/'.$catName.'/'.$imageName);
                     $res['imagePath'] = $imagetwo;
+                    $res['imageName'] = $imageName1;
                     $res['title'] = $imageName;
                     $res['category_slug'] = $catDetails->name;
                     $res['category'] = $catDetails->display_name;
@@ -259,7 +291,9 @@ class ImagesController extends Controller
             $extname = strtolower($file->getClientOriginalExtension());
             $file->storeAs('img/tiles/'.$tilesName,$randomfile.'.'.$extname);
             $docfilename = $randomfile.'.'.$extname;
-            array_push($blankarray_images, $docfilename);
+            $res['image_title'] = $request->img_name;
+            $res['image_slug'] = $docfilename;
+            array_push($blankarray_images, $res);
         }
 
         $checkQury = TilesImage::where('cat_id',$request->hidid)->first();
@@ -288,22 +322,30 @@ class ImagesController extends Controller
             $savedFile = TilesImage::join('category','category.id','=','images.cat_id')->where('images.id',$_REQUEST['fileId'])->select('category.name','category.display_name','images.*')->first();
             $tileCatname = str_replace(' ','_',strtolower($savedFile->name));
             $arrayData = json_decode($savedFile->stock,true);
-            if (($key = array_search($_REQUEST['filename'], $arrayData)) !== false) {
+            
+            $imageSlugToDelete = $_REQUEST['filename'];
 
-                if(file_exists($_SERVER['DOCUMENT_ROOT'].'/img/tiles/'.$tileCatname.'/'.$_REQUEST['filename'])) {
-                    unlink($_SERVER['DOCUMENT_ROOT'].'/img/tiles/'.$tileCatname.'/'.$_REQUEST['filename']);
+            foreach ($arrayData as $key => $item) {
+                if ($item['image_slug'] === $imageSlugToDelete) {
+                    
+                    $imagePath = 'img/tiles/'.$tileCatname.'/'.$item['image_slug'];
+                    if (Storage::exists($imagePath)) {
+                        Storage::delete($imagePath);
+                    }
+                    unset($arrayData[$key]);
+                    break; // Exit the loop after deleting the first occurrence
                 }
-                unset($arrayData[$key]);
-                $updateImages = json_encode($arrayData,true);
-                $saveImages = TilesImage::find($savedFile->id);
-                $saveImages->stock = $updateImages;
-                $saveImages->save();
-                return redirect()->back()->with('success','Image Successfully deleted');
-
             }
+            
+            $updateImages = json_encode($arrayData,true);
+            $saveImages = TilesImage::find($savedFile->id);
+            $saveImages->stock = $updateImages;
+            $saveImages->save();
+            return redirect()->back()->with('success','Image Successfully deleted');
         }
 
         $allTiles = TilesImage::join('category','category.id','=','images.cat_id')->where('images.cat_id',$catid)->select('category.name','category.display_name','images.*')->first();
+        
         return view('admin/tiles/view',compact('allTiles'));
 
     }
