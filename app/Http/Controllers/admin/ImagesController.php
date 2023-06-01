@@ -258,7 +258,7 @@ class ImagesController extends Controller
             //$randomfile = 'TilesLover_'.$randomdate.rand(000,9999);
             $randomfile = $file->getClientOriginalName();
             $extname = strtolower($file->getClientOriginalExtension());
-            $file->storeAs('img/tiles/'.$tilesName,$randomfile.'.'.$extname);
+            $file->storeAs('img/tiles/'.$tilesName, $file->getClientOriginalName());
             $docfilename = $randomfile.'.'.$extname;
             array_push($blankarray_images, $docfilename);
         }
